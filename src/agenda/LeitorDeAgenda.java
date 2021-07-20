@@ -59,7 +59,7 @@ public class LeitorDeAgenda {
 		String sobrenome = campos[COLUNA_SOBRENOME].trim();
 		String telefone = campos[COLUNA_TELEFONE].trim();
 
-		agenda.cadastraContato(posicao, nome, sobrenome, telefone);
+		agenda.cadastraContato((posicao - 1), nome, sobrenome, telefone);
 	}
 
 }

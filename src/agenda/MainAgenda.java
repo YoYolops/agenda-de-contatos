@@ -114,7 +114,7 @@ public class MainAgenda {
 
 		for (int i = 0; i < contatos.length; i++) {
 			if (contatos[i] != null) {
-				System.out.println(formataContato(i, contatos[i]));
+				System.out.println(formataContato((i + 1), contatos[i]));
 			}
 		}
 	}
@@ -170,17 +170,20 @@ public class MainAgenda {
 	private static void cadastraContato(Agenda agenda, Scanner scanner) {
 		System.out.print("\nPosição> ");
 		int posicao = scanner.nextInt();
+		if(posicao < 1 || posicao > 100) { System.out.println("POSIÇÃO INVÁLIDA"); return; }
+
 		System.out.print("\nNome> ");
 		String nome = scanner.next();
+		if(nome == "") { System.out.println("CONTATO INVALIDO"); return; }
+
 		System.out.print("\nSobrenome> ");
 		String sobrenome = scanner.next();
+
 		System.out.print("\nTelefone> ");
 		String telefone = scanner.next();
-
-		if(posicao < 1 || posicao > 100) { System.out.println("POSIÇÃO INVÁLIDA"); return; }
-		if(agenda.contatoExiste(nome, sobrenome)) { System.out.println("CONTATO JA CADASTRADO"); return; }
-		if(nome == "") { System.out.println("CONTATO INVALIDO"); return; }
 		if(telefone == "") { System.out.println("CONTATO INVALIDO"); return; }
+
+		if(agenda.contatoExiste(nome, sobrenome)) { System.out.println("CONTATO JA CADASTRADO"); return; }
 
 		agenda.cadastraContato((posicao - 1), nome, sobrenome, telefone);
 	}
@@ -192,21 +195,24 @@ public class MainAgenda {
 	 * @return void
 	 */
 	public static void cadastraFavorito(Agenda agenda, Scanner scanner) {
-		System.out.println("Contato> ");
+		// coleta e verifica se os dados estão dentro dos padrões
+		System.out.print("Contato> ");
 		int posicaoDoContato = scanner.nextInt();
-		System.out.println("Posicao> ");
+		if(posicaoDoContato > 100 || posicaoDoContato < 1) { System.out.println("CONTATO INVALIDO"); return; }
+
+		System.out.print("Posicao> ");
 		int posicaoEmQueSeraCadastrado = scanner.nextInt();
+		if(posicaoEmQueSeraCadastrado > 5 || posicaoEmQueSeraCadastrado < 1) { System.out.print("POSIÇÃO INVÁLIDA"); return; }
 
 		Contato[] contatos = agenda.getContatos();
 		String nomeContatoSendoCadastrado = contatos[posicaoDoContato - 1].getNome();
 		String sobrenomeContatoSendoCadastrado = contatos[posicaoDoContato - 1].getSobrenome();
-
-		// verifica se as informações fornecidas estão dentro dos padrões
-		if(posicaoDoContato > 100 || posicaoDoContato < 1) { System.out.println("CONTATO INVALIDO"); return; }
-		if(posicaoEmQueSeraCadastrado > 5 || posicaoEmQueSeraCadastrado < 1) { System.out.println("POSIÇÃO INVÁLIDA"); return; }
+		
+		// verifica se o contato já está cadastrado como favorito
 		if(agenda.favoritoExiste(nomeContatoSendoCadastrado, sobrenomeContatoSendoCadastrado)) { System.out.println("CONTATO JA CADASTRADO"); return; }
 
-		agenda.cadastraFavorito(contatos[posicaoDoContato - 1], posicaoEmQueSeraCadastrado);
+		agenda.cadastraFavorito(contatos[posicaoDoContato - 1], (posicaoEmQueSeraCadastrado - 1));
+		System.out.println("CONTATO FAVORITADO NA POSIÇÃO " + posicaoEmQueSeraCadastrado + "!");
 	}
 
 	/**

@@ -69,7 +69,7 @@ public class Agenda {
 	{
 		for(Contato favorito : this.favoritos) {
 			if(favorito != null) {
-				if((nomeContato.equals(favorito.getNome())) && (nomeContato.equals(favorito.getSobrenome()))) {
+				if((nomeContato.equals(favorito.getNome())) && sobrenomeContato.equals(favorito.getSobrenome())) {
 					return true;
 				}
 			}
@@ -111,7 +111,7 @@ public class Agenda {
 								String telefone)
 	{
 		Contato novoContato = new Contato(nome, sobrenome, telefone); 
-		this.contatos[posicao - 1] = novoContato;
+		this.contatos[posicao] = novoContato;
 	}
 
 	/**
