@@ -23,28 +23,19 @@ public class Agenda {
 	}
 
 	/**
-	 * Adiciona contato no array de favoritos
-	 * @param contato contato a ser favoritado
-	 * @param indexFavoritosEmQueSeraArmazenado index do array favoritos em que será armazenado
+	 * Função que exporta os favoritos
+	 * @return clone do array de favoritos
 	 */
-	public void adicionaFavorito(Contato contato, int indexFavoritosEmQueSeraArmazenado) {
-		this.favoritos[indexFavoritosEmQueSeraArmazenado] = contato;
-	}
-
 	public Contato[] getFavoritos() {
-		return this.favoritos;
+		return this.favoritos.clone();
 	}
 
 	
 	/**
-	 * Acessa a lista de contatos mantida.
-	 * @param favoritos se os contatos a serem retornados devem ser os favoritos (true)
+	 * Acessa e retorna a lista de contatos mantida.
 	 * @return Um clone do array de contatos.
 	 */
-	public Contato[] getContatos(boolean favoritos) {
-		if(favoritos) {
-			return this.favoritos.clone();
-		}
+	public Contato[] getContatos() {
 		return this.contatos.clone();
 	}
 
@@ -52,27 +43,34 @@ public class Agenda {
 	 * Verifica se o contato já existe
 	 * @param nomeContato nome do contato a ser procurado
 	 * @param sobrenomeContato sobrenome do contato a ser procurado
-	 * @param procurarEmFavoritos booleano que indica que a busca deve ser feita na lista de favorios (true) ou na lista de contatos (false)
 	 * @return Booleano true se o contato já existe, false caso não exista ainda
 	*/
 	public boolean contatoExiste(String nomeContato,
-								 String sobrenomeContato,
-								 boolean procurarEmFavoritos)
+								 String sobrenomeContato)
 	{
-		if(procurarEmFavoritos) {
-			for(Contato favorito : favoritos) {
-				if(favorito != null) {
-					if(nomeContato.equals(favorito.getNome()) && sobrenomeContato.equals(favorito.getSobrenome())) {
-						return true;
-					}
+		for(Contato contato : this.contatos) {
+			if(contato != null) {
+				if((nomeContato.equals(contato.getNome())) && sobrenomeContato.equals(contato.getSobrenome())) {
+					return true;
 				}
 			}
-		} else {
-			for(Contato contato : contatos) {
-				if(contato != null) {
-					if((nomeContato.equals(contato.getNome())) && sobrenomeContato.equals(contato.getSobrenome())) {
-						return true;
-					}
+		}
+		return false;
+	}
+
+	/**
+	 * Verifica se o favorito já existe no array de favoritos
+	 * @param nomeContato nome do contato que se quer verificar
+	 * @param sobrenomeContato sobrenome do contato que se quer verificar
+	 * @return booleano true caso o contato já esteja nos favoritos, false caso não esteja
+	 */
+	public boolean favoritoExiste(String nomeContato,
+								  String sobrenomeContato)
+	{
+		for(Contato favorito : this.favoritos) {
+			if(favorito != null) {
+				if((nomeContato.equals(favorito.getNome())) && (nomeContato.equals(favorito.getSobrenome()))) {
+					return true;
 				}
 			}
 		}
@@ -92,7 +90,7 @@ public class Agenda {
 	}
 
 	/**
-	 * Acessa os dados de um contato específico.
+	 * Exporta os dados de um contato específico.
 	 * @param posicao Posição do contato na agenda.
 	 * @return Dados do contato. Null se não há contato na posição.
 	 */
@@ -114,6 +112,21 @@ public class Agenda {
 	{
 		Contato novoContato = new Contato(nome, sobrenome, telefone); 
 		this.contatos[posicao - 1] = novoContato;
+	}
+
+	/**
+	 * Adiciona contato no array de favoritos
+	 * @param contato contato a ser favoritado
+	 * @param indexFavoritosEmQueSeraArmazenado index do array favoritos em que será armazenado
+	 */
+	public void cadastraFavorito(Contato contato, int indexFavoritosEmQueSeraArmazenado) {
+		String nome = contato.getNome();
+		String sobrenome = contato.getSobrenome();
+
+		if(this.favoritoExiste(nome, sobrenome)) { // Verifica se o contato já está nos favoritos
+			return;
+		}
+		this.favoritos[indexFavoritosEmQueSeraArmazenado] = contato;
 	}
 
 }
