@@ -4,6 +4,7 @@ package agenda;
  * Uma agenda que mantém uma lista de contatos com posições. Podem existir 100 contatos. 
  * 
  * @author nazareno
+ * @author Yohan Lopes (https://github.com/YoYolops)
  *
  */
 public class Agenda {
@@ -129,4 +130,21 @@ public class Agenda {
 		this.favoritos[indexFavoritosEmQueSeraArmazenado] = contato;
 	}
 
+	/** 
+	 * Direciona as requisições para cadastro de tags aos contatos especificados pelo usuário
+	 * 
+	 * @param indexDeContato array com os indexes dos contatos que devem adicionar tags aos seus dados internos
+	 * @param tag a tag que sera cadastrada pelo(s) contatos
+	 * @param posicaoDaTag em que indexes do array de contatos a tag deve ser armazenada
+	 * 
+	 * @return void
+	 */
+	public void requisitaCadastroDeTag(int[] indexesDeContato, // os index já vêm tratados, ou seja, o dado de input subtraído em 1
+									   String tag,
+									   int posicaoDaTag)
+	{
+		for(int index : indexesDeContato) {
+			this.contatos[index].adicionaTag(posicaoDaTag, tag);
+		}
+	}
 }
