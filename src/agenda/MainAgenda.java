@@ -93,6 +93,7 @@ public class MainAgenda {
 	 */
 	private static void iniciaProcedimentoDeCadastroDeTags(Agenda agenda, Scanner scanner) {
 		System.out.print("Contato(s)> ");
+		scanner.nextLine();
 		String[] inteirosString = scanner.nextLine().split(" ");
 		int[] indexesDeContatosEscolhidos = new int[100];
 
