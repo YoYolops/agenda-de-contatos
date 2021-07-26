@@ -59,7 +59,14 @@ public class Contato {
      * @return String com informações da instância 
      */
     public String toString() {
-        return this.nome + " " + this.sobrenome + "\n" + this.telefone;
+        String stringTags = "";
+
+        for(int i = 0; i < tags.length; i++) {
+            if(tags[i] == null) { continue; }// pula pra próxima iteração
+            stringTags += (tags[i] + " ");
+        }
+
+        return this.nome + " " + this.sobrenome + "\n" + this.telefone + "\n" +  stringTags.trim();
     }
 }
 
