@@ -84,7 +84,7 @@ public class Agenda {
 	 * @return booleano true, caso esteja vazia, false caso esteja preenchida
 	 */ 
 	public boolean isEmpty(int index) {
-		if(this.contatos[index] == null) {
+		if(this.contatos[index - 1] == null) {
 			return true;
 		}
 		return false;
@@ -96,7 +96,10 @@ public class Agenda {
 	 * @return Dados do contato. Null se não há contato na posição.
 	 */
 	public Contato getContato(int posicao) {
-		return this.contatos[posicao];
+		if (posicao > 100 || posicao < 1 || this.isEmpty(posicao)) { 
+			throw new IllegalArgumentException("POSIÇÃO INVÁLIDA");
+		}
+		return this.contatos[posicao - 1];
 	}
 
 	/**
@@ -111,8 +114,13 @@ public class Agenda {
 								String sobrenome,
 								String telefone)
 	{
+		if (posicao > 100 || posicao < 1) { throw new IllegalArgumentException("POSIÇÃO INVÁLIDA"); }
+		if (nome == "") { throw new IllegalArgumentException("CONTATO INVÁLIDO"); }
+		if (telefone == "") { throw new IllegalArgumentException("TELEFONE INVÁLIDO"); }
+		if (this.contatoExiste(nome, sobrenome)) { throw new IllegalArgumentException("CONTATO JÁ CADASTRADO"); }
+
 		Contato novoContato = new Contato(nome, sobrenome, telefone); 
-		this.contatos[posicao] = novoContato;
+		this.contatos[posicao - 1] = novoContato;
 	}
 
 	/**
@@ -124,10 +132,8 @@ public class Agenda {
 		String nome = contato.getNome();
 		String sobrenome = contato.getSobrenome();
 
-		if(this.favoritoExiste(nome, sobrenome)) { // Verifica se o contato já está nos favoritos
-			return;
-		}
-		this.favoritos[indexFavoritosEmQueSeraArmazenado] = contato;
+		if(this.favoritoExiste(nome, sobrenome)) { throw new IllegalArgumentException("FAVORITO JÁ EXISTE"); }
+		this.favoritos[indexFavoritosEmQueSeraArmazenado - 1] = contato;
 	}
 
 	/** 
