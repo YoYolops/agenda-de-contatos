@@ -150,7 +150,7 @@ public class Agenda {
 									   int posicaoDaTag)
 	{
 		for(int index : indexesDeContato) {
-			this.contatos[index].adicionaTag(posicaoDaTag, tag);
+			this.contatos[index - 1].adicionaTag(posicaoDaTag - 1, tag);
 		}
 	}
 }

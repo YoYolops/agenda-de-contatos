@@ -102,7 +102,7 @@ public class MainAgenda {
 			   Integer.parseInt(inteirosString[i]) <= 100 && 
 			   Integer.parseInt(inteirosString[i]) >= 1)
 			{
-				indexesDeContatosEscolhidos[i] = Integer.parseInt(inteirosString[i]) - 1;
+				indexesDeContatosEscolhidos[i] = Integer.parseInt(inteirosString[i]);
 			}
 			else { System.out.println("UM DOS VALORES INSERIDOS É INVÁLIDO"); return; }
 		}
@@ -111,7 +111,7 @@ public class MainAgenda {
 		String tag = scanner.next();
 
 		System.out.print("\nPosicao tag> ");
-		int posicaoTag = scanner.nextInt() - 1;
+		int posicaoTag = scanner.nextInt();
 
 		agenda.requisitaCadastroDeTag(indexesDeContatosEscolhidos, tag, posicaoTag);
 	}
