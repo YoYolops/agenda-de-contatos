@@ -7,6 +7,10 @@ public class Contato {
     private String[] tags = new String[5];
 
     public Contato(String nome, String sobrenome, String telefone) {
+        if (nome == "" || nome == null) { throw new IllegalArgumentException("Nome Inválido"); }
+        if (sobrenome == "" || sobrenome == null) { throw new IllegalArgumentException("Sobrenome inválido"); }
+        if (telefone == "" || telefone == null) { throw new IllegalArgumentException("Telefone Inválido"); }
+    
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.telefone = telefone;
@@ -19,7 +23,11 @@ public class Contato {
      * @return void
      */
     public void adicionaTag(int posicaoOndeAdicionar, String nomeDaTag) { //Já que não foi pedido, Contato não se importa em cadastrar
-        this.tags[posicaoOndeAdicionar] = nomeDaTag;                     // a mesma tag várias vezes
+        if (posicaoOndeAdicionar > 5 || posicaoOndeAdicionar < 1) {      // a mesma tag várias vezes
+            throw new IllegalArgumentException("Posição Inválida");
+        }
+        if (nomeDaTag == "" || nomeDaTag == null) { throw new IllegalArgumentException("Nome de Tag Inválido"); }
+        this.tags[posicaoOndeAdicionar - 1] = nomeDaTag;
     }
 
     /**
